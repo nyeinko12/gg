@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>6-Digit Generator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://png.pngtree.com/background/20250103/original/pngtree-lotso-background-picture-image_15419179.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .number-box {
+      font-size: 5rem;
+      background-color: rgba(0, 0, 0, 0.0);
+      padding: 40px 80px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.0);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+
+    .number-box:active {
+      transform: scale(0.95);
+    }
+
+    .copied {
+      position: absolute;
+      top: 20px;
+      background: #c71e89;
+      color: pink;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="copied" id="copiedMsg">Copied!</div>
+  <div class="number-box" id="numberBox">000000</div>
+
+  <script>
+    const numberBox = document.getElementById("numberBox");
+    const copiedMsg = document.getElementById("copiedMsg");
+
+    function generateNumber() {
+      const number = Math.floor(100000 + Math.random() * 900000);
+      numberBox.textContent = number;
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        copiedMsg.style.display = 'block';
+        setTimeout(() => {
+          copiedMsg.style.display = 'none';
+        }, 1000);
+      });
+    }
+
+    numberBox.addEventListener("click", () => {
+      copyToClipboard(numberBox.textContent);
+    });
+
+    // Start generator
+    generateNumber();
+    setInterval(generateNumber, 300);
+  </script>
+
+</body>
+</html>
